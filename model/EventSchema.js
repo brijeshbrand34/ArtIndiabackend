@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema({
   EventPrice:{type:Number,},
   EventImage:{type:[String]},
   venueId: {type: mongoose.Schema.Types.ObjectId, ref: 'Venue',},
+  Published:{type:Boolean, default:true},
   eventDates: [
     {
       date: {
