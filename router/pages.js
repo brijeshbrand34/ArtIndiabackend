@@ -94,4 +94,31 @@ router.put('/Pagesupdate/:PagesId', upload.fields([ { name: 'pageimg', maxCount:
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+router.put('/publishPages/:Id', async (req, res) => {
+    const { published } = req.body;
+    const PagesId = req.params.Id;
+  
+    try {
+      const result = await Pages.updateOne(
+        { _id: PagesId },
+        {
+          $set: {
+            PopupPublish: published,
+          },
+        }
+      );
+  
+      console.log("result-----", result);
+  
+      if (result.n === 0) {
+        return res.status(404).json({ error: 'Pages not found' });
+      }
+  
+      res.status(200).json({ message: 'Pages published successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 module.exports = router;
