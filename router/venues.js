@@ -7,7 +7,7 @@ router.post('/Venuesadd', async(req,res)=>{
     try {
         const { VenuesName, VenuesAddress } = req.body;
         // Validate input
-        if (!venueName || !venueAddress) {
+        if (!VenuesName || !VenuesAddress) {
             return res.status(400).json({ error: "Both venueName and venueAddress are required." });
         }
         // Create a new Venue instance
@@ -90,3 +90,4 @@ router.put('/Venuesupdate/:VenuesId', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+module.exports=router;
