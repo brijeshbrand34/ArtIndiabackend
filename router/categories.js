@@ -94,7 +94,7 @@ router.get("/getOneCategories/:id", async (req, res) => {
     }
 });
 
-router.put("/updateCategorie/:id", upload.array("CategorieImage"), async (req, res) => {
+router.put("/updateCategorie/:id", upload.array("CategoriesImage"), async (req, res) => {
     const { CategorieTitle, SubCategorieTitle } = req.body;
     const CategorieId = req.params.id;
     console.log(CategorieId);
