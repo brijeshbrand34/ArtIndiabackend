@@ -37,6 +37,7 @@ const upload = multer({ storage });
 
 router.post("/Categorieadd", upload.array("CategoriesImage"), (req, res) => {
     const { CategorieTitle, SubCategorieTitle } = req.body;
+    console.log(req.body);
     const fileNames = req.files?.map((file) => file.filename);
 
     const newData = new Categories({
@@ -136,4 +137,30 @@ router.delete("/deleteCategorie/:id", (req, res) => {
       });
   });
   
+  router.put('/publishCategories/:Id', async (req, res) => {
+    const { published } = req.body;
+    const CategoriesId = req.params.Id;
+  
+    try {
+      const result = await Categories.updateOne(
+        { _id: CategoriesId },
+        {
+          $set: {
+            Published: published,
+          },
+        }
+      );
+  
+      console.log("result-----", result);
+  
+      if (result.n === 0) {
+        return res.status(404).json({ error: 'Categories not found' });
+      }
+  
+      res.status(200).json({ message: 'Categories published successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   module.exports = router;
