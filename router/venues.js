@@ -46,7 +46,7 @@ router.get('/getOneVenues/:id', async (req, res) => {
             return res.status(404).json({ error: "Venues not found" });
         }
 
-        console.log("Venues information for ID", VenueId, ":", Venue);
+        console.log("Venues information for ID", VenuesID, ":", Venue);
 
         res.json({ Venue });
     } catch (error) {
