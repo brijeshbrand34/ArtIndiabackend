@@ -93,7 +93,7 @@ router.get('/getOnePages/:id', async (req, res) => {
 
         console.log("Pages information for ID", PagesId, ":", Page);
 
-        res.json({ Career });
+        res.json({ Pages });
     } catch (error) {
         console.error("Error fetching Career:", error);
         res.status(500).json({ error: "Internal Server Error" });
@@ -109,7 +109,7 @@ router.put('/Pagesupdate/:PagesId', upload.fields([ { name: 'pageimg', maxCount:
 
     try {
         const page = await Pages.findOne({ _id: PagesID });
-        console.log('Found Career:', page);
+        console.log('Found page:', page);
 
         if (!page) {
             return res.status(404).json({ error: 'Pages not found' });
@@ -152,7 +152,7 @@ router.put('/publishPages/:Id', async (req, res) => {
         { _id: PagesId },
         {
           $set: {
-            PopupPublish: published,
+            Published: published,
           },
         }
       );
