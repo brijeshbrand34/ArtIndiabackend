@@ -65,7 +65,7 @@ router.put('/Venuesupdate/:VenuesId', async (req, res) => {
         const Venue = await Venues.findOne({ _id: VenuesID });
         console.log('Found Venues:', Venues);
 
-        if (!page) {
+        if (!Venue) {
             return res.status(404).json({ error: 'Venues not found' });
         }
 
