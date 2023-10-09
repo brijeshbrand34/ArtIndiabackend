@@ -52,7 +52,7 @@ router.put('/Aboutusupdate/:Id', upload.fields([{ name: 'bgimg', maxCount: 1 },
         }
 
         const result = await Aboutus.updateOne(
-            { _id: PagesID },
+            { _id: aboutID },
             {
                 $set: {
                     BGTitle: BGTitle,
