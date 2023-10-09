@@ -8,6 +8,20 @@ const multer = require("multer");
 require("../db/conn");
 const Pages = require('../model/PagesSchema');
 
+function generateUniqueId() {
+    const date = new Date();
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+
+    const uniqueId = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+    return uniqueId;
+}
+
 
 const storage = multer.diskStorage({
     destination: "./assets/uploads/",
@@ -20,6 +34,40 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+router.post('/Pagesadd', upload.fields([ { name: 'pageimg', maxCount: 1 }, 
+    { name: 'pagevideo', maxCount: 1 }, { name: 'gallery', maxCount: 1 }, { name: 'videoimage', maxCount: 1 }]), async (req, res) => {
+    let { Pagestitle, Pagelink, Pagesdescription } = req.body;
+
+    console.log('Request Body:', req.body);
+    // const PagesID = req.params.PagesId;
+    if (!Pagestitle || !Pagelink || !Pagesdescription) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    try {
+        const page = new Pages({
+            PagesId:'page'+generateUniqueId(),
+            PagesTitle: Pagestitle,
+            PagesLink: Pagelink,
+            PagesDescription: Pagesdescription,
+            PagesImg: req.files['pageimg'][0].filename, 
+            PagesVideo: req.files['pagevideo'][0].filename,
+            PagesGallary: req.files['gallery'][0].filename, 
+            PagesBannerVideo: req.files['videoimage'][0].filename,
+        });
+        const savedpages = await page.save();
+        console.log('Found pages:', savedpages);
+
+        if (!page) {
+            return res.status(404).json({ error: 'Pages not found' });
+        }
+        res.status(200).json({ message: 'Pages added successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 router.get('/getAllPages', async (req, res) => {
     try {

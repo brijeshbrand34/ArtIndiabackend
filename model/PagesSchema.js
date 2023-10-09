@@ -9,7 +9,7 @@ const  PagesSchema= new mongoose.Schema({
     PagesVideo: { type: [String], required: true },
     PagesGallary: { type: [String], required: true },
     PagesBannerVideo: { type: [String], required: true },
-    PagesDescription: { type: {String} },
+    PagesDescription: { type: String},
     Published:{type:Boolean, default:true},
 },{
     timestamps:true  
