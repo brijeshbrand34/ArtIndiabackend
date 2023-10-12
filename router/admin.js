@@ -24,37 +24,37 @@ const upload = multer({ storage });
 
 
 // admin add
-router.post("/AdminRegister",upload.array("adminProfilePicture"),async (req, res) => {
-    const { adminName, adminEmail, adminPassword } = req.body;
-    if (!adminName || !adminEmail || !adminPassword) {
-        return res.status(422).json({ error: "Please fill the fields properly",}
-      );
-    }
-    const fileNames = req.files?.map((file) => file.filename);
-    try {
-        const AdminExist = await Admin.findOne({
-          adminEmail: adminEmail,
-        });
-        console.log(AdminExist);
-        if (AdminExist) {
-          return res.status(422).json({
-            error: "Email already exists",
-          });
-        }
-        const Admin2 = new Admin({
-          adminName: adminName,
-          adminEmail: adminEmail,
-          adminPassword: adminPassword,
-          adminProfilePicture: fileNames,
-        });
-
-        await Admin2.save();
-        res.status(201).json({message: "Admin register successfully",});
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({error: "Internal server error",});
-    }
+router.post("/AdminRegister", upload.array("adminProfilePicture"), async (req, res) => {
+  const { adminName, adminEmail, adminPassword } = req.body;
+  if (!adminName || !adminEmail || !adminPassword) {
+    return res.status(422).json({ error: "Please fill the fields properly", }
+    );
   }
+  const fileNames = req.files?.map((file) => file.filename);
+  try {
+    const AdminExist = await Admin.findOne({
+      adminEmail: adminEmail,
+    });
+    console.log(AdminExist);
+    if (AdminExist) {
+      return res.status(422).json({
+        error: "Email already exists",
+      });
+    }
+    const Admin2 = new Admin({
+      adminName: adminName,
+      adminEmail: adminEmail,
+      adminPassword: adminPassword,
+      adminProfilePicture: fileNames,
+    });
+
+    await Admin2.save();
+    res.status(201).json({ message: "Admin register successfully", });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal server error", });
+  }
+}
 );
 //admin login
 router.post("/adminSignin", async (req, res) => {
@@ -129,17 +129,14 @@ router.delete("/deleteAdmin/:AdminId", async (req, res) => {
 router.put("/AdminUpdate/:AdminId", async (req, res) => {
   const AdminId = req.params._id;
   const updates = req.body;
-
   try {
     const result = await Admin.updateOne(
       { AdminId: AdminId },
       { $set: updates }
     );
-
     if (result.n === 0) {
       return res.status(404).json({ error: "Admin not found" });
     }
-
     res.status(200).json({ message: "Admin updated successfully" });
   } catch (error) {
     console.error(error);

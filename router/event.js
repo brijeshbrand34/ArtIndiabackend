@@ -43,7 +43,7 @@ const storage = multer.diskStorage({
               return res.status(400).json({ error: 'No files uploaded.' });
             }
         
-            const fileNames = req.files.map((file) => file.filename);
+            const fileNames = req.files?.map((file) => file.filename);
 
         const event = new Event({
             EventId :'event'+generateUniqueId(),
@@ -60,7 +60,7 @@ const storage = multer.diskStorage({
               times: date.times.map(time => ({ time })),
             })),
         });
-        console.log(savedEvent);
+        // console.log(savedEvent);
         const savedEvent = await event.save();
         res.json(savedEvent);
       } catch (error) {

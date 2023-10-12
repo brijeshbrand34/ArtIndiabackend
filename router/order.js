@@ -2,7 +2,7 @@ require("../db/conn");
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const path = require("path");
-
+const router = express.Router();
 const Orders = require("../model/OrderSchema");
 
 function generateUniqueId() {
@@ -63,3 +63,4 @@ router.get('/getOrder/:OrderId',async (req, res) =>{
         res.status(500).json({ error: "Internal Server Error" });
     }
 })
+module.exports = router;

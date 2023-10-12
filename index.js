@@ -36,6 +36,8 @@ app.use(require("./router/pages"));
 app.use(require("./router/aboutus"));
 app.use(require("./router/event"));
 app.use(require("./router/venues"));
+app.use(require("./router/order"));
+
 
 
 
