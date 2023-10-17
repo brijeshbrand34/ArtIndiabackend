@@ -53,3 +53,4 @@ router.put("/socialmedia-update/:Id", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+module.exports = router;
