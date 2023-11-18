@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
         {
             VenuesName: { type: String, required:true},
             VenuesAddress: {type: String, required:true},
+            VenueDescription:{type:String},
+            VenueImage:{type:[String]},
+            VanueSets:{type:String},
         },
         { timestamps: true }
     );

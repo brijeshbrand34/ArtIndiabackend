@@ -2,11 +2,26 @@ require('../db/conn');
 const express = require('express');
 const router = express.Router();
 const Venues = require('../model/VenuesSchema');
+const multer = require("multer");
+const path = require("path");
 
-router.post('/Venuesadd', async(req,res)=>{
+const storage = multer.diskStorage({
+    destination: "./assets/uploads/",
+    filename: function (req, file, cb) {
+      cb(
+        null,
+        file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      );
+    },
+  });
+  
+  const upload = multer({ storage });
+
+router.post('/Venuesadd',upload.array("VenueImage") ,async(req,res)=>{
     try {
-        const { VenuesName, VenuesAddress } = req.body;
+        const { VenuesName, VenuesAddress,VenueDescription,VenueSets } = req.body;
         // Validate input
+        const fileNames = req.files?.map((file) => file.filename);
         if (!VenuesName || !VenuesAddress) {
             return res.status(400).json({ error: "Both venueName and venueAddress are required." });
         }
@@ -14,6 +29,9 @@ router.post('/Venuesadd', async(req,res)=>{
         const newVenue = new Venues({
             VenuesName:VenuesName,
             VenuesAddress:VenuesAddress,
+            VenueImage:fileNames,
+            VanueSets:VenueSets,
+            VenueDescription:VenueDescription,
         });
         // Save the new venue to the database
         const savedVenue = await newVenue.save();
@@ -55,12 +73,12 @@ router.get('/getOneVenues/:id', async (req, res) => {
     }
 });
 
-router.put('/Venuesupdate/:VenuesId', async (req, res) => {
-    let { VenuesName, VenuesAddress } = req.body;
+router.put('/Venuesupdate/:VenuesId',upload.array("VenueImage") , async (req, res) => {
+    let { VenuesName, VenuesAddress,VenueSets ,VenueDescription} = req.body;
 
     console.log('Request Body:', req.body);
     const VenuesID = req.params.VenuesId;
-
+    const fileNames = req.files?.map((file) => file.filename);
     try {
         const Venue = await Venues.findOne({ _id: VenuesID });
         console.log('Found Venues:', Venues);
@@ -75,6 +93,9 @@ router.put('/Venuesupdate/:VenuesId', async (req, res) => {
                 $set: {
                     VenuesName: VenuesName,
                     VenuesAddress: VenuesAddress,
+                    VenueImage:fileNames,
+                    VenueDescription:VenueDescription,
+                    VanueSets:VenueSets,
                 },
             }
         );

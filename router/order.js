@@ -21,7 +21,7 @@ function generateUniqueId() {
 
 router.post('/CraeteOrder', async (req, res) =>{
     try{
-        const { OrderUserName, OrderEventId, EventDate,EventTime ,UserEmail, UserMobile, Ordercount, OrderPrice,} = req.body;
+        const { OrderUserName, OrderEventId, EventDate,EventTime ,UserEmail, UserMobile, Ordercount, OrderPrice,Numberofseat} = req.body;
         const Order = new Orders({
             OrderId:"order"+generateUniqueId,
             OrderUserName:OrderUserName,
@@ -32,6 +32,7 @@ router.post('/CraeteOrder', async (req, res) =>{
             UserMobile:UserMobile,
             Ordercount:Ordercount,
             OrderPrice:OrderPrice,
+            Numberofseat : Numberofseat,
         });
         const savedOrder = await Order.save();
         res.json({message:"Order created sucessfully",savedOrder});

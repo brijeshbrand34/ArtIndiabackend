@@ -10,6 +10,7 @@ const OrderSchema = new mongoose.Schema({
     UserMobile:{type:Number,},
     Ordercount:{type:Number},
     OrderPrice:{type:Number},
+    Numberofseat :{type:Number},
   
 });
 const Orders = mongoose.model('Orders', OrderSchema);
