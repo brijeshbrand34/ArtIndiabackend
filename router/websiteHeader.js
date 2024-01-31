@@ -25,13 +25,13 @@ router.post(
   "/addwebsiteHeader",
   upload.array("websiteHeaderLogoImage"),
   (req, res) => {
-    const { whatsappIconLink, facebookIconLink, instagramIconLink } = req.body;
+    // const { whatsappIconLink, facebookIconLink, instagramIconLink } = req.body;
     const fileNames = req.files?.map((file) => file.filename);
 
     const newData = new WebsiteHeader({
-      whatsappIconLink: whatsappIconLink,
-      facebookIconLink: facebookIconLink,
-      instagramIconLink: instagramIconLink,
+      // whatsappIconLink: whatsappIconLink,
+      // facebookIconLink: facebookIconLink,
+      // instagramIconLink: instagramIconLink,
       websiteHeaderLogoImage: fileNames,
     });
 
@@ -67,7 +67,7 @@ router.put(
   "/updateWebsiteHeader/:id",
   upload.array("websiteHeaderLogoImage"),
   async (req, res) => {
-    const { whatsappIconLink, facebookIconLink, instagramIconLink } = req.body;
+    // const { whatsappIconLink, facebookIconLink, instagramIconLink } = req.body;
     const websiteHeaderId = req.params._id;
 
     try {
@@ -81,9 +81,9 @@ router.put(
         { websiteHeaderId: websiteHeaderId },
         {
           $set: {
-            whatsappIconLink: whatsappIconLink,
-            facebookIconLink: facebookIconLink,
-            instagramIconLink: instagramIconLink,
+            // whatsappIconLink: whatsappIconLink,
+            // facebookIconLink: facebookIconLink,
+            // instagramIconLink: instagramIconLink,
             websiteHeaderLogoImage: fileNames, // Use fileNames here instead of blogImage
           },
         }

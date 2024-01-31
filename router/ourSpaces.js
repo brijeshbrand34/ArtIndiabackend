@@ -80,7 +80,7 @@ router.get("/getOurSpaces", async (req, res) => {
   }
 });
 
-router.get("/getOneHeroSectionBanners/:id", async (req, res) => {
+router.get("/getOneOurSpace/:id", async (req, res) => {
   const ourSpacesId = req.params.id;
 
   try {
@@ -148,7 +148,8 @@ router.delete("/deleteOurSpace/:id", (req, res) => {
       if (!space) {
         return res.status(404).send("Not Found");
       }
-      res.send("Deleted Successfully");
+      // res.send("Deleted Successfully");
+      res.status(200).json({ message: "Deleted successfully" });
     })
     .catch((error) => {
       res.status(500).send(error);

@@ -24,7 +24,8 @@ function generateUniqueId() {
 }
 
 router.post("/addContact", (req, res) => {
-  const { contactName, contactEmail, contactPhoneNumber, contactMessage } = req.body;
+  const { contactName, contactEmail, contactPhoneNumber, contactMessage } =
+    req.body;
 
   const newData = new ContactRoute({
     contactId: "contact" + generateUniqueId(),
@@ -115,7 +116,8 @@ router.delete("/deleteContact/:id", (req, res) => {
       if (!con) {
         return res.status(404).send("Not Found");
       }
-      res.send("Deleted Successfully");
+      // res.send("Deleted Successfully");
+      res.status(200).json({ message: "contact updated successfully" });
     })
     .catch((error) => {
       res.status(500).send(error);

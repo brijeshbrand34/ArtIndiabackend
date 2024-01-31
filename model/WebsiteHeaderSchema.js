@@ -4,15 +4,15 @@ const WebsiteHeaderSchema = new mongoose.Schema(
     websiteHeaderLogoImage: {
       type: [String],
     },
-    whatsappIconLink: {
-      type: String,
-    },
-    facebookIconLink: {
-      type: String,
-    },
-    instagramIconLink: {
-      type: String,
-    },
+    // whatsappIconLink: {
+    //   type: String,
+    // },
+    // facebookIconLink: {
+    //   type: String,
+    // },
+    // instagramIconLink: {
+    //   type: String,
+    // },
   },
   { timestamps: true }
 );

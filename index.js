@@ -12,7 +12,7 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true, }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware for parsing JSON data
 
@@ -38,13 +38,10 @@ app.use(require("./router/event"));
 app.use(require("./router/venues"));
 app.use(require("./router/order"));
 app.use(require("./router/Socialmedia"));
-app.use(require("./router/eventsheat"));
-
-
-
-
-
-
+app.use(require("./router/termsAndConditions"));
+app.use(require("./router/privacyPolicy"));
+app.use(require("./router/eventSeats"));
+app.use(require("./router/faq"));
 
 app.use(express.urlencoded({ extended: true }));
 // app.get("/*", function (req, res) {

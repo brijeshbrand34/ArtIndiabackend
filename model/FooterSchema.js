@@ -16,15 +16,6 @@ const FooterSchema = new mongoose.Schema(
     footerAddress: {
       type: String,
     },
-    whatsappIconLink: {
-      type: String,
-    },
-    facebookIconLink: {
-      type: String,
-    },
-    instagramIconLink: {
-      type: String,
-    },
   },
   { timestamps: true }
 );

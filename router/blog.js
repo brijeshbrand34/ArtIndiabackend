@@ -137,7 +137,8 @@ router.delete("/deleteBlog/:id", (req, res) => {
       if (!blog) {
         return res.status(404).send("Not Found");
       }
-      res.send("Deleted Successfully");
+      // res.send("Deleted Successfully");
+      res.status(200).json({ message: "Deleted Successfully" });
     })
     .catch((error) => {
       res.status(500).send(error);

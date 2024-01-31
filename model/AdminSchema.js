@@ -4,37 +4,43 @@ const bcrypt = require("bcryptjs");
 const SECRET_KEY = process.env.SECRET_KEY;
 const AdminSchema = new mongoose.Schema(
   {
-    adminName: {
+    name: {
       type: String,
-      required: true,
+     
     },
-    adminEmail: {
+    email: {
       type: String,
-      required: true,
+     
     },
-    adminPassword: {
+    password: {
       type: String,
-      required: true,
+     
     },
-    adminProfilePicture: {
-      type: [String],
-    },
+    profileImage:{
+      type:[String],
+      //required:true
+  },
+  
     tokens: [
       {
         token: {
           type: String,
+         
         },
       },
-    ],
+    ]
+  
   },
-  { timestamps: true }
+  { timestamps: true },
+  
+  
 );
+
 
 AdminSchema.pre("save", async function (next) {
   console.log("hi from inside");
-  if (this.isModified("adminPassword")) {
-    this.adminPassword = await bcrypt.hash(this.adminPassword, 12);
-    // this.confirmPassword = await bcrypt.hash(this.confirmPassword, 12);
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 12);
   }
   next();
 });
